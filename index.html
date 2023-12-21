@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raven's KitchenCraf</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/vue-awesome-swiper/dist/ssr/index.css" />
+  <style>
+    #app {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .item {
+      width: 30%;
+      height: 250px; /* Set a fixed height as needed */
+      margin: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      overflow: hidden; /* Hide content that overflows the container */
+      cursor: pointer;
+      position: relative;
+    }
+
+    .item-name {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+
+    .swiper-container {
+      height: 100%; /* Make the swiper container take full height of the item container */
+      max-width: 100%; /* Set the maximum width as needed */
+      margin: 0 auto; /* Center the container */
+      overflow: hidden; /* Ensure the images don't overflow */
+    }
+
+    .swiper-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .swiper-slide {
+      text-align: center; /* Center the content within the slide */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%; /* Make each slide take full width */
+    }
+
+    .swiper-slide img {
+      width: 100%; /* Make sure the image takes 100% of the container width */
+      height: auto; /* Maintain the aspect ratio */
+      max-height: 80%; /* Set a maximum height for the image */
+      object-fit: contain; /* Maintain aspect ratio and fit within the container */
+    }
+
+    .item-name {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Raven's KitchenCraft</h2>
+
+<div id="app">
+  <div class="item" v-for="item in items" :key="item.id" @click="openItem(item)">
+   
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="(image, index) in item.images" :key="index">
+          <img :src="image" alt="Item Image">
+        </div>
+      </div>
+    </div>
+    <div class="item-name">{{ item.name }}</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/vue-awesome-swiper/dist/ssr/index.js"></script>
+<script src="items.js"></script>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    items: items, // Use the imported items
+  },
+  methods: {
+    openItem(item) {
+      const url = `item-details.html?id=${item.id}`;
+      window.open(url, '_blank');
+    },
+  },
+});
+</script>
+
+</body>
+</html>

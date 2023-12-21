@@ -1,0 +1,119 @@
+<!-- item-details.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>utensils Details</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <style>
+    /* Your styles here */
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .swiper-container {
+      margin-top: 20px;
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: contain;
+    }
+
+    .item-name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .item-name {
+      margin-top: 10px;
+    }
+
+    .whatsapp-button {
+      display: block;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: green;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="item-name" id="itemName"></div>
+  <div class="item-name" id="itemdescription"></div>
+
+  <div class="swiper-container">
+    <div class="swiper-wrapper" id="swiperWrapper"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+
+  <a href="#" class="whatsapp-button" id="whatsappButton">Buy on WhatsApp</a>
+</div>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const queryParams = new URLSearchParams(window.location.search);
+  const itemId = queryParams.get('id');
+  const item = getItemDetails(itemId);
+
+  document.getElementById('itemName').innerText = item.name;
+  document.getElementById('itemdescription').innerText = item.description;
+
+  const swiper = new Swiper('.swiper-container', {
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+
+  const swiperWrapper = document.getElementById('swiperWrapper');
+  item.images.forEach((image, index) => {
+    const swiperSlide = document.createElement('div');
+    swiperSlide.classList.add('swiper-slide');
+
+    const img = document.createElement('img');
+    img.src = image;
+    img.alt = `Image ${index + 1}`;
+
+    swiperSlide.appendChild(img);
+    swiperWrapper.appendChild(swiperSlide);
+  });
+
+  const whatsappButton = document.getElementById('whatsappButton');
+  whatsappButton.href = `https://wa.me/9870311304?text=I%20want%20to%20buy%20${item.name}%20-%20${item.whatsappLink}`;
+});
+
+function getItemDetails(itemId) {
+  const items = [
+  { id: 1, images: ['images/item1/photo1.jpg', 'images/item1/photo1.jpg'], name: 'Item 1 name', description: 'desc1',  whatsappLink: 'https://wa.me/9870311304' },
+    { id: 2, images: ['images/item1/photo2.jpg'], name: 'Item 2 name',  description: 'desc1', whatsappLink: 'https://wa.me/9870311304' },
+    { id: 3, images: ['images/item2/photo3.jpg'], name: 'Item 3 name',  description: 'desc1', whatsappLink: 'https://wa.me/9870311304' },
+    { id: 4, images: ['images/item2/photo4.jpg'], name: 'Item 4 name',  description: 'desc1', whatsappLink: 'https://wa.me/9870311304' },
+    { id: 5, images: ['images/item3/photo5.jpg'], name: 'Item 5 name',  description: 'desc1', whatsappLink: 'https://wa.me/9870311304' },
+    { id: 6, images: ['images/item3/photo6.jpg'], name: 'Item 6 name',  description: 'desc1', whatsappLink: 'https://wa.me/9870311304' },
+  ];
+
+  return items.find(item => item.id.toString() === itemId.toString()) || {};
+}
+</script>
+
+</body>
+</html>
